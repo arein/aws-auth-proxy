@@ -10,7 +10,6 @@ import (
 	"time"
 	"net/http"
 	"net/url"
-	"time"
 	"github.com/coreos/pkg/flagutil"
 	"github.com/crowdmob/goamz/aws"
 )
