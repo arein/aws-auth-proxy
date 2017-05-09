@@ -29,7 +29,7 @@ func main() {
 
 	fs.StringVar(&auth.AccessKey, "access-key", "", "aws access key id")
 	fs.StringVar(&auth.SecretKey, "secret-key", "", "aws secret access key")
-	fs.StringVar(&auth.token, "token", "", "aws security token")
+	fs.StringVar(auth.Token, "token", "", "aws security token")
 	fs.StringVar(&serviceName, "service-name", "", "aws service name")
 	var regionName string
 	fs.StringVar(&regionName, "region-name", "", "aws region name")
