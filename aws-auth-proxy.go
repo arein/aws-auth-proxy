@@ -16,7 +16,6 @@ import (
 )
 
 func main() {
-	fmt.Printf("%+v", aws.Auth)
 	var (
 		auth          aws.Auth
 		targetURL     url.URL
