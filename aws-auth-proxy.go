@@ -29,9 +29,11 @@ func main() {
 	var accessKey string
 	var secretKey string
 	var token string
+	var expiration string
 	fs.StringVar(&accessKey, "access-key", "", "aws access key id")
 	fs.StringVar(&secretKey, "secret-key", "", "aws secret access key")
 	fs.StringVar(&token, "token", "", "aws security token")
+	fs.StringVar(&expiration, "expiration", "", "aws token expiration")
 	fs.StringVar(&serviceName, "service-name", "", "aws service name")
 	var regionName string
 	fs.StringVar(&regionName, "region-name", "", "aws region name")
@@ -52,12 +54,16 @@ func main() {
 	fs.Parse(os.Args[1:])
 	
 	
+	t, err := time.Parse(time.RFC3339Nano, expiration)
+	if err != nil {
+		panic(err)
+	}
 
 	region = aws.GetRegion(regionName)
 	fmt.Println(accessKey)
 	fmt.Println(secretKey)
 	fmt.Println(token)
-	auth = *aws.NewAuth(accessKey, secretKey, token, time.Now())
+	auth = *aws.NewAuth(accessKey, secretKey, token, t)
 	signer := aws.NewV4Signer(auth, serviceName, region)
 
 	proxyHandler := &AWSProxy{
