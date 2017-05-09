@@ -11,7 +11,7 @@ import (
 	"net/http"
 	"net/url"
 	"github.com/coreos/pkg/flagutil"
-	"github.com/crowdmob/goamz/aws"
+	"github.com/AdRoll/goamz/aws"
 )
 
 func main() {
