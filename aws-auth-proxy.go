@@ -26,10 +26,13 @@ func main() {
 	const flagEnvPrefix = "AWS_AUTH_PROXY"
 
 	fs := flag.NewFlagSet("aws-auth-proxy", flag.ExitOnError)
-
-	fs.StringVar(&auth.AccessKey, "access-key", "", "aws access key id")
-	fs.StringVar(&auth.SecretKey, "secret-key", "", "aws secret access key")
-	fs.StringVar(&auth.token, "token", "", "aws security token")
+	
+	var accessKey string
+	var secretKey string
+	var token string
+	fs.StringVar(&accessKey, "access-key", "", "aws access key id")
+	fs.StringVar(&secretKey, "secret-key", "", "aws secret access key")
+	fs.StringVar(&token, "token", "", "aws security token")
 	fs.StringVar(&serviceName, "service-name", "", "aws service name")
 	var regionName string
 	fs.StringVar(&regionName, "region-name", "", "aws region name")
@@ -50,7 +53,7 @@ func main() {
 	fs.Parse(os.Args[1:])
 
 	region = aws.GetRegion(regionName)
-
+	auth = NewAuth(accessKey, secretKey, token)
 	signer := aws.NewV4Signer(auth, serviceName, region)
 
 	proxyHandler := &AWSProxy{
