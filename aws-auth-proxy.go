@@ -53,7 +53,7 @@ func main() {
 	fs.Parse(os.Args[1:])
 
 	region = aws.GetRegion(regionName)
-	auth = NewAuth(accessKey, secretKey, token)
+	auth = aws.NewAuth(accessKey, secretKey, token)
 	signer := aws.NewV4Signer(auth, serviceName, region)
 
 	proxyHandler := &AWSProxy{
