@@ -50,8 +50,13 @@ func main() {
 		os.Exit(0)
 	}
 	fs.Parse(os.Args[1:])
+	
+	
 
 	region = aws.GetRegion(regionName)
+	fmt.Println(accessKey)
+	fmt.Println(secretKey)
+	fmt.Println(token)
 	auth = *aws.NewAuth(accessKey, secretKey, token, time.Now())
 	signer := aws.NewV4Signer(auth, serviceName, region)
 
